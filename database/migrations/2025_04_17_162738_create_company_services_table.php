@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\ServiceCategory;
+use App\Models\ServiceSubCategory;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('company_services', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(ServiceCategory::class)->nullable()
+                ->constrained()
+                ->cascadeOnDelete();
+            $table->foreignIdFor(ServiceSubCategory::class)->nullable()
+                ->constrained()
+                ->cascadeOnDelete();
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('meta_title');

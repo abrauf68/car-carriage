@@ -909,7 +909,7 @@ section,
   margin-bottom: 40px;
 }
 
-.hero form {
+/* .hero form {
   background: color-mix(in srgb, var(--default-color) 5%, white 90%);
   padding: 10px;
   border-radius: 10px;
@@ -941,7 +941,7 @@ section,
 
 .hero form .btn-primary:hover {
   background-color: color-mix(in srgb, var(--accent-color), transparent 15%);
-}
+} */
 
 .hero .stats-item {
   padding: 30px;

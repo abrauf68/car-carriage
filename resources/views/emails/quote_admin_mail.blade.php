@@ -13,21 +13,19 @@
     <hr>
 
     <h4 style="margin-bottom: 10px;">🚚 Shipment Details</h4>
+    <p><strong>Quote ID:</strong> {{ $quote->quoteId }}</p>
     <p><strong>Pickup Location:</strong> {{ $quote->pickup_location }}</p>
     <p><strong>Delivery Location:</strong> {{ $quote->delivery_location }}</p>
-    <p><strong>Zip code:</strong> {{ $quote->zip_code }}</p>
+    <p><strong>Transport Type:</strong> {{ ucfirst($quote->transport_type) }}</p>
+    <p><strong>Distance:</strong> {{ $quote->distance }}</p>
 
-    {{-- @if (!empty($quote->weight))
-        <p><strong>Weight:</strong> {{ $quote->weight }}</p>
-    @endif
+    <hr>
 
-    @if (!empty($quote->dimension))
-        <p><strong>Dimension:</strong> {{ $quote->dimension }}</p>
-    @endif --}}
-
-    @if (!empty($quote->delivery_details))
-        <p><strong>Delivery Details:</strong> {{ $quote->delivery_details }}</p>
-    @endif
+    <h4 style="margin-bottom: 10px;">🚗 Vehicle Information</h4>
+    <p><strong>Vehicle Year:</strong> {{ $quote->vehicle_year }}</p>
+    <p><strong>Vehicle Make:</strong> {{ $quote->vehicle_make }}</p>
+    <p><strong>Vehicle Model:</strong> {{ $quote->vehicle_model }}</p>
+    <p><strong>Condition:</strong> {{ ucfirst($quote->condition) }}</p>
 
     <hr>
 

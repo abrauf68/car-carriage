@@ -7,6 +7,7 @@ use App\Models\CompanyService;
 use App\Models\CompanySetting;
 use App\Models\Faq;
 use App\Models\Package;
+use App\Models\Price;
 use App\Models\SystemSetting;
 use App\Models\ServiceFeature;
 use App\Models\Testimonial;
@@ -144,6 +145,38 @@ class Helper
         } else {
             return [];
         }
+    }
+    public static function getEnclosedPrice($distance)
+    {
+        $totalPrice = 0;
+        $distance = (int) $distance;
+        $prices = Price::first();
+        $totalPrice = $prices->enclosed_price * $distance;
+
+        return self::formatCurrency($totalPrice);
+    }
+    public static function getNonRunningPrice()
+    {
+        $price = Price::first();
+        return self::formatCurrency($price->non_running_price);
+    }
+    public static function getPrice($distance, $transportType, $condition)
+    {
+        $totalPrice = 0;
+        $distance = (int) $distance;
+        $transportType = strtolower($transportType);
+        $condition = strtolower($condition);
+
+        $prices = Price::first();
+        $totalPrice = $prices->transport_price * $distance;
+        if ($transportType == 'enclosed' && $prices->enclosed_price > 0) {
+            $totalPrice += $prices->enclosed_price * $distance;
+        }
+        if ($condition == 'non-running' && $prices->non_running_price > 0) {
+            $totalPrice += $prices->non_running_price;
+        }
+
+        return $totalPrice;
     }
     public static function getFeatures()
     {

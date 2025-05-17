@@ -190,7 +190,10 @@ Route::name('frontend.')->group(function () {
     Route::post('contact/submit', [FormSubmissionController::class, 'submitContactForm'])->name('contact.submit');
     Route::get('get-a-quote', [FrontendHomeController::class, 'getAQuote'])->name('get-a-quote');
     Route::post('get-a-quote/submit', [FormSubmissionController::class, 'submitQuoteForm'])->name('get-a-quote.submit');
+    Route::get('get-a-quote/{quoteId}/details', [FrontendHomeController::class, 'quoteDetails'])->name('get-a-quote.details');
+    Route::post('quotes/{quoteId}/update-options', [FrontendHomeController::class, 'updateQuoteDetails'])->name('get-a-quote.update');
     Route::get('features/{slug?}', [FrontendHomeController::class, 'features'])->name('features');
+    Route::get('get-models/{id}', [FrontendHomeController::class, 'getModelsbyBrand'])->name('get.models');
 });
 
 

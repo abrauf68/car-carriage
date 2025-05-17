@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\CompanySetting;
 use App\Models\EmailSetting;
 use App\Models\OtherSetting;
+use App\Models\Price;
 use App\Models\RecaptchaSetting;
 use App\Models\SystemSetting;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -18,7 +19,7 @@ class SettingSeeder extends Seeder
     public function run(): void
     {
         CompanySetting::create([
-            'company_name' => 'Global Search',
+            'company_name' => 'Car Carriage',
             'facebook' => 'https://facebook.com/',
             'instagram' => 'https://instagram.com/',
             'twitter' => 'https://twitter.com/',
@@ -47,5 +48,12 @@ class SettingSeeder extends Seeder
             'mail_from_name' => 'Admin',
             'is_enabled' => '1',
         ]);
+
+        Price::create([
+            'transport_price' => '1',
+            'enclosed_price' => '0.5',
+            'non_running_price' => '50',
+        ]);
+
     }
 }

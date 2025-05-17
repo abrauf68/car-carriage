@@ -34,6 +34,8 @@ class DatabaseSeeder extends Seeder
             FaqSeeder::class,
             PackageSeeder::class,
             ServiceFeatureSeeder::class,
+            CarBrandSeeder::class,
+            CarModelSeeder::class,
         ]);
     }
 }

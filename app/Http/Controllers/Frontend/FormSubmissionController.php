@@ -77,14 +77,15 @@ class FormSubmissionController extends Controller
         $rules = [
             'pickup_location' => 'required|string|max:255',
             'delivery_location' => 'required|string|max:255',
-            'zip_code' => 'nullable|integer',
-            // 'weight' => 'nullable|string|max:255',
-            // 'dimension' => 'nullable|string|max:255',
-            'delivery_details' => 'nullable|string',
+            'transport_type' => 'required|in:open,enclosed',
+            'vehicle_year' => 'required|integer',
+            'vehicle_make' => 'required|string|max:255',
+            'vehicle_model' => 'required|string|max:255',
+            'condition' => 'required|in:running,non-running',
             'name' => 'required|string|max:255',
             'email' => 'required|email',
             'phone' => 'required|string|max:255',
-            'message' => 'nullable|string',
+            'distance' => 'required|string|max:255',
         ];
 
         // If captcha is used
@@ -101,16 +102,22 @@ class FormSubmissionController extends Controller
 
         try {
             $quote = new Quote();
+            $quote->quoteId = uniqid();
             $quote->pickup_location = $request->pickup_location;
             $quote->delivery_location = $request->delivery_location;
-            $quote->zip_code = $request->zip_code;
-            // $quote->weight = $request->weight;
-            // $quote->dimension = $request->dimension;
-            $quote->delivery_details = $request->delivery_details;
+            $quote->transport_type = $request->transport_type;
+            $quote->vehicle_year = $request->vehicle_year;
+            $quote->vehicle_make = $request->vehicle_make;
+            $quote->vehicle_model = $request->vehicle_model;
+            $quote->condition = $request->condition;
+            $quote->distance = $request->distance;
             $quote->name = $request->name;
             $quote->email = $request->email;
             $quote->phone = $request->phone;
-            $quote->message = $request->message;
+            $quote->save();
+
+            $price = Helper::getPrice($request->distance, $request->transport_type, $request->condition);
+            $quote->price = $price;
             $quote->save();
 
             $admins = User::role(['admin', 'super-admin'])->get();
@@ -134,7 +141,7 @@ class FormSubmissionController extends Controller
                 }
             }
 
-            return redirect()->back()->with('success', 'Your Quote has been submitted successfully!');
+            return redirect()->route('frontend.get-a-quote.details', $quote->quoteId)->with('success', 'Your Quote has been submitted successfully!');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return redirect()->back()->with('error', 'An error occurred while sending your message. Please try again later.');
