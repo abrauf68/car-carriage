@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Dashboard\ContactController;
 use App\Http\Controllers\Dashboard\FAQController;
 use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\Dashboard\HowItWorkController;
 use App\Http\Controllers\Dashboard\NotificationController;
 use App\Http\Controllers\Dashboard\PricingController;
 use App\Http\Controllers\Dashboard\ProfileController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\Dashboard\TeamController;
 use App\Http\Controllers\Dashboard\TestimonialController;
 use App\Http\Controllers\Dashboard\User\ArchivedUserController;
 use App\Http\Controllers\Dashboard\User\UserController;
+use App\Http\Controllers\Dashboard\WhyUsController;
 use App\Http\Controllers\Frontend\FormSubmissionController;
 use App\Http\Controllers\Frontend\HomeController as FrontendHomeController;
 use App\Http\Middleware\CheckAccountActivation;
@@ -151,6 +153,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::resource('company-services', ServiceController::class);
             Route::get('company-services/status/{id}', [ServiceController::class, 'updateServiceStatus'])->name('company-services.status.update');
 
+            // How It Works
+            Route::resource('how-it-works', HowItWorkController::class);
+            Route::get('how-it-works/status/{id}', [HowItWorkController::class, 'updateStatus'])->name('how-it-works.status.update');
+
+            // Why Us
+            Route::resource('why-us', WhyUsController::class);
+            Route::get('why-us/status/{id}', [WhyUsController::class, 'updateStatus'])->name('why-us.status.update');
+
             // Contacts
             Route::resource('contacts', ContactController::class);
 
@@ -184,6 +194,8 @@ Route::name('frontend.')->group(function () {
     Route::get('home', [FrontendHomeController::class, 'home'])->name('home');
     Route::get('about', [FrontendHomeController::class, 'about'])->name('about');
     Route::get('services/{slug?}', [FrontendHomeController::class, 'services'])->name('services');
+    Route::get('how-it-works/{slug?}', [FrontendHomeController::class, 'howItWorks'])->name('howItWorks');
+    Route::get('why-us/{slug?}', [FrontendHomeController::class, 'whyUs'])->name('whyUs');
     Route::get('services/details', [FrontendHomeController::class, 'serviceDetails'])->name('service.details');
     Route::get('pricing', [FrontendHomeController::class, 'pricing'])->name('pricing');
     Route::get('contact', [FrontendHomeController::class, 'contact'])->name('contact');

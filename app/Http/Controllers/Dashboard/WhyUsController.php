@@ -3,28 +3,27 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\CompanyService;
-use App\Models\ServiceCategory;
-use App\Models\ServiceSubCategory;
+use App\Models\CompanyInfo;
+use App\Models\CompanyInfoCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
-class ServiceController extends Controller
+class WhyUsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $this->authorize('view service');
+        $this->authorize('view why us');
         try {
-            $services = CompanyService::all();
-            return view('dashboard.services.index', compact('services'));
+            $companyInfos = CompanyInfo::all();
+            return view('dashboard.why-us.index', compact('companyInfos'));
         } catch (\Throwable $th) {
-            Log::error('Services Index Failed', ['error' => $th->getMessage()]);
+            Log::error('Why Us Index Failed', ['error' => $th->getMessage()]);
             return redirect()->back()->with('error', "Something went wrong! Please try again later");
             throw $th;
         }
@@ -35,13 +34,12 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        $this->authorize('create service');
+        $this->authorize('create why us');
         try {
-            $serviceCategories = ServiceCategory::where('is_active', 'active')->get();
-            $serviceSubCategories = ServiceSubCategory::where('is_active', 'active')->get();
-            return view('dashboard.services.create', compact('serviceCategories','serviceSubCategories'));
+            $companyInfoCategories = CompanyInfoCategory::where('is_active', 'active')->get();
+            return view('dashboard.why-us.create', compact('companyInfoCategories'));
         } catch (\Throwable $th) {
-            Log::error('Services Create Failed', ['error' => $th->getMessage()]);
+            Log::error('companyInfo Create Failed', ['error' => $th->getMessage()]);
             return redirect()->back()->with('error', "Something went wrong! Please try again later");
             throw $th;
         }
@@ -52,12 +50,11 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create service');
+        $this->authorize('create why us');
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|unique:company_services,slug',
-            'service_category_id' => 'required|exists:service_categories,id',
-            'service_sub_category_id' => 'required|exists:service_sub_categories,id',
+            'slug' => 'required|string|unique:company_infos,slug',
+            'company_info_category_id' => 'required|exists:company_info_categories,id',
             'is_featured' => 'nullable|in:on',
             'meta_title' => 'required|string|max:255',
             'meta_description' => 'required|string|max:255',
@@ -73,42 +70,41 @@ class ServiceController extends Controller
         try {
             $isFeatured = isset($request->is_featured) && $request->is_featured == 'on' ? '1' : '0';
             DB::beginTransaction();
-            $service = new CompanyService();
-            $service->name = $request->name;
-            $service->slug = $request->slug;
-            $service->meta_title = $request->meta_title;
-            $service->meta_description = $request->meta_description;
-            $service->details = $request->details;
-            $service->service_category_id = $request->service_category_id;
-            $service->service_sub_category_id = $request->service_sub_category_id;
-            $service->is_featured = $isFeatured;
+            $info = new CompanyInfo();
+            $info->name = $request->name;
+            $info->slug = $request->slug;
+            $info->meta_title = $request->meta_title;
+            $info->meta_description = $request->meta_description;
+            $info->details = $request->details;
+            $info->company_info_category_id = $request->company_info_category_id;
+            $info->is_featured = $isFeatured;
 
             if ($request->hasFile('meta_image')) {
                 $Image = $request->file('meta_image');
                 $Image_ext = $Image->getClientOriginalExtension();
                 $Image_name = time() . '_meta_image.' . $Image_ext;
 
-                $Image_path = 'uploads/company/services';
+                $Image_path = 'uploads/company/infos';
                 $Image->move(public_path($Image_path), $Image_name);
-                $service->meta_image = $Image_path . "/" . $Image_name;
+                $info->meta_image = $Image_path . "/" . $Image_name;
             }
             if ($request->hasFile('main_image')) {
                 $Image = $request->file('main_image');
                 $Image_ext = $Image->getClientOriginalExtension();
                 $Image_name = time() . '_main_image.' . $Image_ext;
 
-                $Image_path = 'uploads/company/services';
+                $Image_path = 'uploads/company/infos';
                 $Image->move(public_path($Image_path), $Image_name);
-                $service->main_image = $Image_path . "/" . $Image_name;
+                $info->main_image = $Image_path . "/" . $Image_name;
             }
 
-            $service->save();
+            $info->save();
 
             DB::commit();
-            return redirect()->route('dashboard.company-services.index')->with('success', 'Service Created Successfully');
+            return redirect()->route('dashboard.why-us.index')->with('success', 'Info Created Successfully');
         } catch (\Throwable $th) {
             DB::rollBack();
-            Log::error('Service Store Failed', ['error' => $th->getMessage()]);
+            Log::error('CompanyInfo Store Failed', ['error' => $th->getMessage()]);
             return redirect()->back()->with('error', "Something went wrong! Please try again later");
             throw $th;
         }
@@ -127,14 +123,13 @@ class ServiceController extends Controller
      */
     public function edit(string $id)
     {
-        $this->authorize('update service');
+        $this->authorize('update why us');
         try {
-            $service = CompanyService::findOrFail($id);
-            $serviceCategories = ServiceCategory::where('is_active', 'active')->get();
-            $serviceSubCategories = ServiceSubCategory::where('is_active', 'active')->get();
-            return view('dashboard.services.edit', compact('service','serviceCategories','serviceSubCategories'));
+            $companyInfo = CompanyInfo::findOrFail($id);
+            $companyInfoCategories = CompanyInfoCategory::where('is_active', 'active')->get();
+            return view('dashboard.why-us.edit', compact('companyInfo','companyInfoCategories'));
         } catch (\Throwable $th) {
-            Log::error('Service Edit Failed', ['error' => $th->getMessage()]);
+            Log::error('Company Info Edit Failed', ['error' => $th->getMessage()]);
             return redirect()->back()->with('error', "Something went wrong! Please try again later");
             throw $th;
         }
@@ -145,12 +140,11 @@ class ServiceController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $this->authorize('update service');
+        $this->authorize('update why us');
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|unique:company_services,slug,' . $id,
-            'service_category_id' => 'required|exists:service_categories,id',
-            'service_sub_category_id' => 'required|exists:service_sub_categories,id',
+            'slug' => 'required|string|unique:company_infos,slug,' . $id,
+            'company_info_category_id' => 'required|exists:company_info_categories,id',
             'is_featured' => 'nullable|in:on',
             'meta_title' => 'required|string|max:255',
             'meta_description' => 'required|string|max:255',
@@ -164,46 +158,45 @@ class ServiceController extends Controller
         }
         try {
             $isFeatured = isset($request->is_featured) && $request->is_featured == 'on' ? '1' : '0';
-            $service = CompanyService::findOrFail($id);
-            $service->name = $request->name;
-            $service->slug = $request->slug;
-            $service->meta_title = $request->meta_title;
-            $service->meta_description = $request->meta_description;
-            $service->details = $request->details;
-            $service->service_category_id = $request->service_category_id;
-            $service->service_sub_category_id = $request->service_sub_category_id;
-            $service->is_featured = $isFeatured;
+            $info = CompanyInfo::findOrFail($id);
+            $info->name = $request->name;
+            $info->slug = $request->slug;
+            $info->meta_title = $request->meta_title;
+            $info->meta_description = $request->meta_description;
+            $info->details = $request->details;
+            $info->company_info_category_id = $request->company_info_category_id;
+            $info->is_featured = $isFeatured;
 
             if ($request->hasFile('meta_image')) {
-                if (isset($service->meta_image) && File::exists(public_path($service->meta_image))) {
-                    File::delete(public_path($service->meta_image));
+                if (isset($info->meta_image) && File::exists(public_path($info->meta_image))) {
+                    File::delete(public_path($info->meta_image));
                 }
                 $Image = $request->file('meta_image');
                 $Image_ext = $Image->getClientOriginalExtension();
                 $Image_name = time() . '_meta_image.' . $Image_ext;
 
-                $Image_path = 'uploads/company/services';
+                $Image_path = 'uploads/company/infos';
                 $Image->move(public_path($Image_path), $Image_name);
-                $service->meta_image = $Image_path . "/" . $Image_name;
+                $info->meta_image = $Image_path . "/" . $Image_name;
             }
             if ($request->hasFile('main_image')) {
-                if (isset($service->main_image) && File::exists(public_path($service->main_image))) {
-                    File::delete(public_path($service->main_image));
+                if (isset($info->main_image) && File::exists(public_path($info->main_image))) {
+                    File::delete(public_path($info->main_image));
                 }
                 $Image = $request->file('main_image');
                 $Image_ext = $Image->getClientOriginalExtension();
                 $Image_name = time() . '_main_image.' . $Image_ext;
 
-                $Image_path = 'uploads/company/services';
+                $Image_path = 'uploads/company/infos';
                 $Image->move(public_path($Image_path), $Image_name);
-                $service->main_image = $Image_path . "/" . $Image_name;
+                $info->main_image = $Image_path . "/" . $Image_name;
             }
 
-            $service->save();
+            $info->save();
 
-            return redirect()->route('dashboard.company-services.index')->with('success', 'Service Updated Successfully');
+            return redirect()->route('dashboard.why-us.index')->with('success', 'Info Updated Successfully');
         } catch (\Throwable $th) {
-            Log::error('Service Update Failed', ['error' => $th->getMessage()]);
+            Log::error('CompanyInfo Update Failed', ['error' => $th->getMessage()]);
             return redirect()->back()->with('error', "Something went wrong! Please try again later");
             throw $th;
         }
@@ -214,19 +207,19 @@ class ServiceController extends Controller
      */
     public function destroy(string $id)
     {
-        $this->authorize('delete service');
+        $this->authorize('delete why us');
         try {
-            $service = CompanyService::findOrFail($id);
-            if (isset($service->meta_image) && File::exists(public_path($service->meta_image))) {
-                File::delete(public_path($service->meta_image));
+            $companyInfo = CompanyInfo::findOrFail($id);
+            if (isset($companyInfo->meta_image) && File::exists(public_path($companyInfo->meta_image))) {
+                File::delete(public_path($companyInfo->meta_image));
             }
-            if (isset($service->main_image) && File::exists(public_path($service->main_image))) {
-                File::delete(public_path($service->main_image));
+            if (isset($companyInfo->main_image) && File::exists(public_path($companyInfo->main_image))) {
+                File::delete(public_path($companyInfo->main_image));
             }
-            $service->delete();
-            return redirect()->back()->with('success', 'Service Deleted Successfully');
+            $companyInfo->delete();
+            return redirect()->back()->with('success', 'Info Deleted Successfully');
         } catch (\Throwable $th) {
-            Log::error('Service Delete Failed', ['error' => $th->getMessage()]);
+            Log::error('CompanyInfo Delete Failed', ['error' => $th->getMessage()]);
             return redirect()->back()->with('error', "Something went wrong! Please try again later");
             throw $th;
         }
@@ -234,20 +227,20 @@ class ServiceController extends Controller
 
     public function updateServiceStatus(string $id)
     {
-        $this->authorize('update service');
+        $this->authorize('update why us');
         try {
-            $service = CompanyService::findOrFail($id);
-            $message = $service->is_active == 'active' ? 'Service Deactivated Successfully' : 'Service Activated Successfully';
-            if ($service->is_active == 'active') {
-                $service->is_active = 'inactive';
-                $service->save();
+            $companyInfo = CompanyInfo::findOrFail($id);
+            $message = $companyInfo->is_active == 'active' ? 'Info Deactivated Successfully' : 'Info Activated Successfully';
+            if ($companyInfo->is_active == 'active') {
+                $companyInfo->is_active = 'inactive';
+                $companyInfo->save();
             } else {
-                $service->is_active = 'active';
-                $service->save();
+                $companyInfo->is_active = 'active';
+                $companyInfo->save();
             }
             return redirect()->back()->with('success', $message);
         } catch (\Throwable $th) {
-            Log::error('Service Status Updation Failed', ['error' => $th->getMessage()]);
+            Log::error('Info Status Updation Failed', ['error' => $th->getMessage()]);
             return redirect()->back()->with('error', "Something went wrong! Please try again later");
             throw $th;
         }

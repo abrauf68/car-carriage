@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class ServiceCategory extends Model
 {
     use HasFactory;
+
+    public function ServiceSubCategories()
+    {
+        return $this->hasMany(ServiceSubCategory::class)
+                    ->where('is_active', 'active');
+    }
 }

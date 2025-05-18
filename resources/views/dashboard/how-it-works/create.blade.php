@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', __('Create Service'))
+@section('title', __('Create Guide'))
 
 @section('css')
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
@@ -8,7 +8,7 @@
 
 
 @section('breadcrumb-items')
-    <li class="breadcrumb-item"><a href="{{route('dashboard.company-services.index')}}">{{ __('Services') }}</a></li>
+    <li class="breadcrumb-item"><a href="{{route('dashboard.how-it-works.index')}}">{{ __('How It Works') }}</a></li>
     <li class="breadcrumb-item active">{{ __('Create') }}</li>
 @endsection
 @section('content')
@@ -16,16 +16,16 @@
         <div class="card mb-6">
             <!-- Account -->
             <div class="card-body pt-4">
-                <form method="POST" action="{{ route('dashboard.company-services.store') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('dashboard.how-it-works.store') }}" enctype="multipart/form-data">
                     @csrf
 
                     <div class="row p-5">
-                        <h3>{{ __('Add New Service') }}</h3>
+                        <h3>{{ __('Add New Guide') }}</h3>
                         <div class="mb-4 col-md-6">
-                            <label for="name" class="form-label">{{ __('Service Name') }}</label><span
+                            <label for="name" class="form-label">{{ __('Name') }}</label><span
                                 class="text-danger">*</span>
                             <input class="form-control @error('name') is-invalid @enderror" type="text" id="name"
-                                name="name" required placeholder="{{ __('Enter service name') }}" autofocus />
+                                name="name" required placeholder="{{ __('Enter name') }}" autofocus />
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -36,48 +36,8 @@
                             <label for="slug" class="form-label">{{ __('Slug') }}</label><span
                                 class="text-danger">*</span>
                             <input class="form-control @error('slug') is-invalid @enderror" type="text" id="slug"
-                                name="slug" required placeholder="{{ __('Enter service slug') }}" />
+                                name="slug" required placeholder="{{ __('Enter slug') }}" />
                             @error('slug')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <label class="form-label" for="service_category_id">{{ __('Category') }}</label>
-                            <select id="service_category_id" name="service_category_id"
-                                class="select2 form-select @error('service_category_id') is-invalid @enderror">
-                                <option value="" selected disabled>{{ __('Select Category') }}</option>
-                                @if (isset($serviceCategories) && count($serviceCategories) > 0)
-                                    @foreach ($serviceCategories as $category)
-                                        <option value="{{ $category->id }}"
-                                            {{ old('service_category_id') == $category->id ? 'selected' : '' }}>
-                                            {{ $category->name }}
-                                        </option>
-                                    @endforeach
-                                @endif
-                            </select>
-                            @error('service_category_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <label class="form-label" for="service_sub_category_id">{{ __('Sub Category') }}</label>
-                            <select id="service_sub_category_id" name="service_sub_category_id"
-                                class="select2 form-select @error('service_sub_category_id') is-invalid @enderror">
-                                <option value="" selected disabled>{{ __('Select Sub Category') }}</option>
-                                @if (isset($serviceSubCategories) && count($serviceSubCategories) > 0)
-                                    @foreach ($serviceSubCategories as $subcategory)
-                                        <option value="{{ $subcategory->id }}"
-                                            {{ old('service_sub_category_id') == $subcategory->id ? 'selected' : '' }}>
-                                            {{ $subcategory->name }}
-                                        </option>
-                                    @endforeach
-                                @endif
-                            </select>
-                            @error('service_sub_category_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -88,7 +48,7 @@
                                 class="text-danger">*</span>
                             <input class="form-control @error('meta_title') is-invalid @enderror" type="text"
                                 id="meta_title" name="meta_title" required
-                                placeholder="{{ __('Enter service meta title') }}" />
+                                placeholder="{{ __('Enter meta title') }}" />
                             @error('meta_title')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -100,7 +60,7 @@
                                 class="text-danger">*</span>
                             <input class="form-control @error('meta_description') is-invalid @enderror" type="text"
                                 id="meta_description" name="meta_description" required
-                                placeholder="{{ __('Enter service meta description') }}" />
+                                placeholder="{{ __('Enter meta description') }}" />
                             @error('meta_description')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -111,7 +71,7 @@
                             <label for="details" class="form-label">{{ __('Details') }}</label><span
                                 class="text-danger">*</span>
                             <textarea class="form-control @error('details') is-invalid @enderror" id="details" name="details"
-                                placeholder="{{ __('Enter service meta description') }}" cols="30" rows="10"></textarea>
+                                placeholder="{{ __('Enter meta description') }}" cols="30" rows="10"></textarea>
                             @error('details')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -140,25 +100,9 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="col-md-6 mb-4">
-                            <label class="switch switch-square">
-                                <label for="is_featured" class="switch-label">{{ __('Featured') }} <br> <small>Is this service is featured one?</small></label>
-                                <input type="checkbox" class="switch-input @error('is_featured') is-invalid @enderror" id="is_featured"
-                                    name="is_featured" {{ old('is_featured') ? 'checked' : '' }}/>
-                                <span class="switch-toggle-slider">
-                                    <span class="switch-on"></span>
-                                    <span class="switch-off"></span>
-                                </span>
-                            </label>
-                            @error('is_featured')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
                     </div>
                     <div class="mt-2">
-                        <button type="submit" class="btn btn-primary me-3">{{ __('Add Service') }}</button>
+                        <button type="submit" class="btn btn-primary me-3">{{ __('Add Guide') }}</button>
                     </div>
                 </form>
             </div>

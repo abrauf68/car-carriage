@@ -1,7 +1,6 @@
 <?php
 
-use App\Models\ServiceCategory;
-use App\Models\ServiceSubCategory;
+use App\Models\CompanyInfoCategory;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,12 +12,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('company_services', function (Blueprint $table) {
+        Schema::create('company_infos', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(ServiceCategory::class)->nullable()
-                ->constrained()
-                ->cascadeOnDelete();
-            $table->foreignIdFor(ServiceSubCategory::class)->nullable()
+            $table->foreignIdFor(CompanyInfoCategory::class)->nullable()
                 ->constrained()
                 ->cascadeOnDelete();
             $table->string('name');
@@ -39,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('company_services');
+        Schema::dropIfExists('company_infos');
     }
 };

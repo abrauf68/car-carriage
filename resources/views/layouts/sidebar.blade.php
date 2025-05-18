@@ -37,6 +37,24 @@
             </li>
         @endcan
 
+        @can(['view how it work'])
+            <li class="menu-item {{ request()->routeIs('dashboard.how-it-works.*') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.how-it-works.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons ti ti-briefcase"></i>
+                    <div>{{ __('How It Works') }}</div>
+                </a>
+            </li>
+        @endcan
+
+        @can(['view why us'])
+            <li class="menu-item {{ request()->routeIs('dashboard.why-us.*') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.why-us.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons ti ti-briefcase"></i>
+                    <div>{{ __('Why Car Carriage') }}</div>
+                </a>
+            </li>
+        @endcan
+
         @can(['view contact'])
             <li class="menu-item {{ request()->routeIs('dashboard.contacts.*') ? 'active' : '' }}">
                 <a href="{{ route('dashboard.contacts.index') }}" class="menu-link">

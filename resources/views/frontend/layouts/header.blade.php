@@ -52,248 +52,98 @@
                         <span>HOW IT WORKS</span> <i class="fas fa-chevron-down toggle-dropdown"></i>
                     </a>
                     <div class="dropdown-menu">
-                        <div class="dropdown-column">
-                            <div class="menu-item"><a href="#">How to ship a car<small>Guide to auto transport</small></a></div>
-                            <div class="menu-item"><a href="#">Car shipping costs<small>Calculate your estimate</small></a></div>
-                            <div class="menu-item"><a href="#">Cross country car shipping<small>Sea to shining sea</small></a></div>
-                        </div>
+                        @if (count(\App\Helpers\Helper::getHowItWorks()) > 0)
+                            @php
+                                $howItWorkChunks = \App\Helpers\Helper::getHowItWorks()->chunk(7); // Split services into groups of 7
+                            @endphp
+                            @foreach ($howItWorkChunks as $howItWorkchunk)
+                                <div class="dropdown-column">
+                                    @foreach ($howItWorkchunk as $howItWork)
+                                        <div class="menu-item">
+                                            <a href="{{ route('frontend.howItWorks', $howItWork->slug) }}">
+                                                <div class="menu-link">
+                                                    <span class="item-name">{{ $howItWork->name }}</span>
+                                                    <span class="item-meta">{{ $howItWork->meta_title }}</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endforeach
+                        @endif
                     </div>
                 </li>
+                @if (count(\App\Helpers\Helper::getServiceCategories()) > 0)
+                    @foreach (\App\Helpers\Helper::getServiceCategories() as $index => $category)
+                        <li class="dropdown">
+                            <a href="#">
+                                <span>{{ strtoupper($category->name) }}</span> <i
+                                    class="fas fa-chevron-down toggle-dropdown"></i>
+                            </a>
+
+                            <div class="dropdown-menu"
+                                style="width: 730px; {{ $index == 0 ? 'left: 0 !important;' : 'right: 0 !important;' }}">
+                                @if (isset($category->ServiceSubCategories) && count($category->ServiceSubCategories) > 0)
+                                    @foreach ($category->ServiceSubCategories as $subcategory)
+                                        @php
+                                            $servicesChunks = $subcategory->companyServices->chunk(7); // Split services into groups of 7
+                                        @endphp
+
+                                        @foreach ($servicesChunks as $chunk)
+                                            <div class="dropdown-column">
+                                                <h4>{{ strtoupper($subcategory->name) }}</h4>
+
+                                                @foreach ($chunk as $service)
+                                                    <div class="menu-item">
+                                                        <a href="{{ route('frontend.services', $service->slug) }}">
+                                                            <div class="menu-link">
+                                                                <span class="item-name">{{ $service->name }}</span>
+                                                                <span class="item-meta">{{ $service->meta_title }}</span>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        @endforeach
+                                    @endforeach
+                                @endif
+                            </div>
+                        </li>
+                    @endforeach
+                @endif
                 <li class="dropdown">
                     <a href="#">
-                        <span>FOR INDIVIDUALS</span> <i class="fas fa-chevron-down toggle-dropdown"></i>
-                    </a>
-
-                    <div class="dropdown-menu" style="width: 730px; left: 0 !important;">
-                        <!-- We offer -->
-                        <div class="dropdown-column">
-                            <h4>We offer</h4>
-
-                            <div class="menu-item">
-                                <a href="#">
-                                    Door-to-door transport
-                                    <small>Straight from/to your home or office</small>
-                                </a>
-                            </div>
-
-                            <div class="menu-item">
-                                <a href="#">
-                                    Open car transport
-                                    <small>Quick and affordable option</small>
-                                </a>
-                            </div>
-
-                            <div class="menu-item">
-                                <a href="#">
-                                    Enclosed auto transport
-                                    <small>Safe and clean option</small>
-                                </a>
-                            </div>
-
-                            <div class="menu-item">
-                                <a href="#">
-                                    Expedited auto transport
-                                    <small>Guaranteed pick-up date</small>
-                                </a>
-                            </div>
-
-                            <div class="menu-item">
-                                <a href="#">
-                                    Hawaii car transport
-                                    <small>Ship from/to Hawaii</small>
-                                </a>
-                            </div>
-
-                            <div class="menu-item">
-                                <a href="#">
-                                    Puerto Rico car transport
-                                    <small>Ship from/to Puerto Rico</small>
-                                </a>
-                            </div>
-
-                            <div class="menu-item">
-                                <a href="#">
-                                    Guam car transport
-                                    <small>Ship from/to Guam</small>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="dropdown-column">
-                            <h4>We serve</h4>
-
-                            <div class="menu-item">
-                                <a href="#">
-                                    Car relocation services
-                                    <small>Private or corporate moves</small>
-                                </a>
-                            </div>
-
-                            <div class="menu-item">
-                                <a href="#">
-                                    Online car buyers
-                                    <small>Bought and shipped online</small>
-                                </a>
-                            </div>
-
-                            <div class="menu-item">
-                                <a href="#">
-                                    Motorcycle shipping
-                                    <small>Scenic drives and road adventures</small>
-                                </a>
-                            </div>
-
-                            <div class="menu-item">
-                                <a href="#">
-                                    Student car shipping
-                                    <small>Move from/to the college campus</small>
-                                </a>
-                            </div>
-
-                            <div class="menu-item">
-                                <a href="#">
-                                    Ship a car to another state
-                                    <small>Ship from/to any state</small>
-                                </a>
-                            </div>
-
-                            <div class="menu-item">
-                                <a href="#">
-                                    Snowbird car shipping
-                                    <small>Move to the endless summer</small>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="dropdown-column">
-                            <div class="menu-item">
-                                <a href="#">
-                                    Luxury/exotic car shipping
-                                    <small>High-end luxury vehicles</small>
-                                </a>
-                            </div>
-
-                            <div class="menu-item">
-                                <a href="#">
-                                    Car resellers
-                                    <small>Delivered to your client</small>
-                                </a>
-                            </div>
-
-                            <div class="menu-item">
-                                <a href="#">
-                                    Military car shipping
-                                    <small>The home of the brave</small>
-                                </a>
-                            </div>
-
-                            <div class="menu-item">
-                                <a href="#">
-                                    International car shipping
-                                    <small>Move overseas</small>
-                                </a>
-                            </div>
-
-                            <div class="menu-item">
-                                <a href="#">
-                                    Truck shipping services
-                                    <small>Pickups, oversized, or custom</small>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="dropdown">
-                    <a href="#">
-                        <span>FOR BUSINESSES</span> <i class="fas fa-chevron-down toggle-dropdown"></i>
+                        <span>WHY CAR CARRIAGE</span> <i class="fas fa-chevron-down toggle-dropdown"></i>
                     </a>
 
                     <div class="dropdown-menu">
-                        <div class="dropdown-column">
-                            <h4>Industries we serve</h4>
+                        @if (count(\App\Helpers\Helper::getCompanyInfoCategories()) > 0)
+                            @foreach (\App\Helpers\Helper::getCompanyInfoCategories() as $companyInfoCategory)
+                                @php
+                                    $companyInfoChunks = $companyInfoCategory->companyInfo->chunk(7); // Split services into groups of 7
+                                @endphp
 
-                            <div class="menu-item">
-                                <a href="#">
-                                    Auto dealerships & groups
-                                    <small>Streamlined customer service</small>
-                                </a>
-                            </div>
+                                @foreach ($companyInfoChunks as $companyInfoChunk)
+                                    <div class="dropdown-column">
+                                        <h4>{{ strtoupper($companyInfoCategory->name) }}</h4>
 
-                            <div class="menu-item">
-                                <a href="#">
-                                    Auto auctions
-                                    <small>Transport speed and efficiency</small>
-                                </a>
-                            </div>
-
-                            <div class="menu-item">
-                                <a href="#">
-                                    Fleet management
-                                    <small>Inventory rotation expertise</small>
-                                </a>
-                            </div>
-
-                            <div class="menu-item">
-                                <a href="#">
-                                    Financial institutions
-                                    <small>Credit and repossessions</small>
-                                </a>
-                            </div>
-
-                            <div class="menu-item">
-                                <a href="#">
-                                    OEM auto transport
-                                    <small>National service coverage</small>
-                                </a>
-                            </div>
-
-                            <div class="menu-item">
-                                <a href="#">
-                                    Rental car companies
-                                    <small>Scaled inventory management</small>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="dropdown-column">
-                            <h4>Solutions & advantages</h4>
-
-                            <div class="menu-item">
-                                <a href="#">
-                                    Logistics
-                                    <small>Transportation management</small>
-                                </a>
-                            </div>
-
-                            <div class="menu-item">
-                                <a href="#">
-                                    Montway automation portal
-                                    <small>Centralized operations platform</small>
-                                </a>
-                            </div>
-
-                            <div class="menu-item">
-                                <a href="#">
-                                    Home delivery for dealerships
-                                    <small>Driveaway service</small>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="dropdown-column">
-                            <h4>Relocation services</h4>
-
-                            <div class="menu-item">
-                                <a href="#">
-                                    Corporate relocations
-                                    <small>Program management</small>
-                                </a>
-                            </div>
-                        </div>
-
+                                        @foreach ($companyInfoChunk as $companyInfo)
+                                            <div class="menu-item">
+                                                <a href="{{ route('frontend.whyUs', $companyInfo->slug) }}">
+                                                    <div class="menu-link">
+                                                        <span class="item-name">{{ $companyInfo->name }}</span>
+                                                        <span class="item-meta">{{ $companyInfo->meta_title }}</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @endforeach
+                            @endforeach
+                        @endif
                     </div>
                 </li>
-                <li class="dropdown">
+                {{-- <li class="dropdown">
                     <a href="#">
                         <span>WHY CAR CARRIAGE</span> <i class="fas fa-chevron-down toggle-dropdown"></i>
                     </a>
@@ -337,7 +187,7 @@
                             <div class="menu-item"><a href="#">Blog<small>Auto news and insights</small></a></div>
                         </div>
                     </div>
-                </li>
+                </li> --}}
             </ul>
             <i class="mobile-nav-toggle d-xl-none fas fa-bars"></i>
         </nav>

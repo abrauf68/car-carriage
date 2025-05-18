@@ -1,19 +1,19 @@
 @extends('frontend.layouts.master')
 
-@section('title', $service->name)
+@section('title', $whyUs->name)
 @section('meta_description', '')
 @section('meta_keywords', '')
 
 <!-- Page Title -->
 @section('page_title')
     @include('frontend.layouts.partials.page_title', [
-        'title' => 'Services',
+        'title' => 'Why Car Carriage',
         'description' =>
             'Discover the range of solutions we offer to help your business grow, streamline operations, and reach new heights.',
         'breadcrumbs' => [
             ['name' => 'Home', 'url' => route('frontend.home')],
-            ['name' => 'Services', 'url' => route('frontend.services')],
-            ['name' => $service->name],
+            ['name' => 'Why Car Carriage'],
+            ['name' => $whyUs->name],
         ],
     ])
 @endsection
@@ -31,23 +31,23 @@
             <div class="row gy-4">
 
                 <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="services-list">
-                        @if (isset($featuredServices) && count($featuredServices) > 0)
-                            @foreach ($featuredServices as $serv)
-                                <a href="{{ route('frontend.services', $serv->slug) }}"
-                                    class="{{ $serv->id == $service->id ? 'active' : '' }}">{{ $serv->name }}</a>
+                    {{-- <div class="services-list">
+                        @if (isset($allHowItWorks) && count($allHowItWorks) > 0)
+                            @foreach ($allHowItWorks as $serv)
+                                <a href="{{ route('frontend.howItWorks', $serv->slug) }}"
+                                    class="{{ $serv->id == $howItWork->id ? 'active' : '' }}">{{ $serv->name }}</a>
                             @endforeach
                         @endif
-                    </div>
+                    </div> --}}
 
-                    <h4>{{ $service->meta_title }}</h4>
-                    <p>{{ $service->meta_description }}</p>
+                    <h4>{{ $whyUs->meta_title }}</h4>
+                    <p>{{ $whyUs->meta_description }}</p>
                 </div>
 
                 <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
-                    <img src="{{ asset($service->main_image) }}" alt="{{ $service->name }}"
+                    <img src="{{ asset($whyUs->main_image) }}" alt="{{ $whyUs->name }}"
                         class="img-fluid services-img">
-                    {!! $service->details !!}
+                    {!! $whyUs->details !!}
                 </div>
 
             </div>

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('icon')->nullable();
             $table->longText('description')->nullable();
+            $table->enum('is_active', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
     }

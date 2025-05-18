@@ -1,13 +1,13 @@
 @extends('layouts.master')
 
-@section('title', __('Edit Service'))
+@section('title', __('Edit Guide'))
 
 @section('css')
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
 @endsection
 
 @section('breadcrumb-items')
-    <li class="breadcrumb-item"><a href="{{route('dashboard.company-services.index')}}">{{ __('Services') }}</a></li>
+    <li class="breadcrumb-item"><a href="{{route('dashboard.how-it-works.index')}}">{{ __('How It Works') }}</a></li>
     <li class="breadcrumb-item active">{{ __('Edit') }}</li>
 @endsection
 
@@ -15,86 +15,45 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card mb-6">
             <div class="card-body pt-4">
-                <form method="POST" action="{{ route('dashboard.company-services.update', $service->id) }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('dashboard.how-it-works.update', $howItWork->id) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
                     <div class="row p-5">
-                        <h3>{{ __('Edit Service') }}</h3>
+                        <h3>{{ __('Edit Guide') }}</h3>
 
                         <div class="mb-4 col-md-6">
-                            <label for="name" class="form-label">{{ __('Service Name') }}</label><span class="text-danger">*</span>
+                            <label for="name" class="form-label">{{ __('Name') }}</label><span class="text-danger">*</span>
                             <input class="form-control @error('name') is-invalid @enderror" type="text" id="name"
-                                name="name" required value="{{ old('name', $service->name) }}" />
+                                name="name" required value="{{ old('name', $howItWork->name) }}" />
                             @error('name') <span class="invalid-feedback"><strong>{{ $message }}</strong></span> @enderror
                         </div>
 
                         <div class="mb-4 col-md-6">
                             <label for="slug" class="form-label">{{ __('Slug') }}</label><span class="text-danger">*</span>
                             <input class="form-control @error('slug') is-invalid @enderror" type="text" id="slug"
-                                name="slug" required value="{{ old('slug', $service->slug) }}" />
+                                name="slug" required value="{{ old('slug', $howItWork->slug) }}" />
                             @error('slug') <span class="invalid-feedback"><strong>{{ $message }}</strong></span> @enderror
-                        </div>
-
-                        <div class="col-md-6 mb-4">
-                            <label class="form-label" for="service_category_id">{{ __('Category') }}</label>
-                            <select id="service_category_id" name="service_category_id"
-                                class="select2 form-select @error('service_category_id') is-invalid @enderror">
-                                <option value="" selected disabled>{{ __('Select Category') }}</option>
-                                @if (isset($serviceCategories) && count($serviceCategories) > 0)
-                                    @foreach ($serviceCategories as $category)
-                                        <option value="{{ $category->id }}"
-                                            {{ old('service_category_id', $service->service_category_id) == $category->id ? 'selected' : '' }}>
-                                            {{ $category->name }}
-                                        </option>
-                                    @endforeach
-                                @endif
-                            </select>
-                            @error('service_category_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <label class="form-label" for="service_sub_category_id">{{ __('Sub Category') }}</label>
-                            <select id="service_sub_category_id" name="service_sub_category_id"
-                                class="select2 form-select @error('service_sub_category_id') is-invalid @enderror">
-                                <option value="" selected disabled>{{ __('Select Sub Category') }}</option>
-                                @if (isset($serviceSubCategories) && count($serviceSubCategories) > 0)
-                                    @foreach ($serviceSubCategories as $subcategory)
-                                        <option value="{{ $subcategory->id }}"
-                                            {{ old('service_sub_category_id', $service->service_sub_category_id) == $subcategory->id ? 'selected' : '' }}>
-                                            {{ $subcategory->name }}
-                                        </option>
-                                    @endforeach
-                                @endif
-                            </select>
-                            @error('service_sub_category_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
                         </div>
 
                         <div class="mb-4 col-md-12">
                             <label for="meta_title" class="form-label">{{ __('Meta Title') }}</label><span class="text-danger">*</span>
                             <input class="form-control @error('meta_title') is-invalid @enderror" type="text"
-                                id="meta_title" name="meta_title" required value="{{ old('meta_title', $service->meta_title) }}" />
+                                id="meta_title" name="meta_title" required value="{{ old('meta_title', $howItWork->meta_title) }}" />
                             @error('meta_title') <span class="invalid-feedback"><strong>{{ $message }}</strong></span> @enderror
                         </div>
 
                         <div class="mb-4 col-md-12">
                             <label for="meta_description" class="form-label">{{ __('Meta Description') }}</label><span class="text-danger">*</span>
                             <input class="form-control @error('meta_description') is-invalid @enderror" type="text"
-                                id="meta_description" name="meta_description" required value="{{ old('meta_description', $service->meta_description) }}" />
+                                id="meta_description" name="meta_description" required value="{{ old('meta_description', $howItWork->meta_description) }}" />
                             @error('meta_description') <span class="invalid-feedback"><strong>{{ $message }}</strong></span> @enderror
                         </div>
 
                         <div class="mb-4 col-md-12">
                             <label for="details" class="form-label">{{ __('Details') }}</label><span class="text-danger">*</span>
                             <textarea class="form-control @error('details') is-invalid @enderror" id="details" name="details"
-                                placeholder="{{ __('Enter service meta description') }}" cols="30" rows="10">{{ old('details', $service->details) }}</textarea>
+                                placeholder="{{ __('Enter meta description') }}" cols="30" rows="10">{{ old('details', $howItWork->details) }}</textarea>
                             @error('details') <span class="invalid-feedback"><strong>{{ $message }}</strong></span> @enderror
                         </div>
 
@@ -103,8 +62,8 @@
                             <input class="form-control @error('meta_image') is-invalid @enderror" type="file"
                                 id="meta_image" name="meta_image" accept="image/*" />
                             @error('meta_image') <span class="invalid-feedback"><strong>{{ $message }}</strong></span> @enderror
-                            @if($service->meta_image)
-                                <img src="{{ asset($service->meta_image) }}" alt="Meta Image" class="mt-2" width="120">
+                            @if($howItWork->meta_image)
+                                <img src="{{ asset($howItWork->meta_image) }}" alt="Meta Image" class="mt-2" width="120">
                             @endif
                         </div>
 
@@ -113,31 +72,15 @@
                             <input class="form-control @error('main_image') is-invalid @enderror" type="file"
                                 id="main_image" name="main_image" accept="image/*" />
                             @error('main_image') <span class="invalid-feedback"><strong>{{ $message }}</strong></span> @enderror
-                            @if($service->main_image)
-                                <img src="{{ asset($service->main_image) }}" alt="Main Image" class="mt-2" width="120">
+                            @if($howItWork->main_image)
+                                <img src="{{ asset($howItWork->main_image) }}" alt="Main Image" class="mt-2" width="120">
                             @endif
                         </div>
 
-                        <div class="col-md-6 mb-4">
-                            <label class="switch switch-square">
-                                <label for="is_featured" class="switch-label">{{ __('Featured') }} <br> <small>Is this service is featured one?</small></label>
-                                <input type="checkbox" class="switch-input @error('is_featured') is-invalid @enderror" id="is_featured"
-                                    name="is_featured" {{ old('is_featured', $service->is_featured) == '1' ? 'checked' : '' }}/>
-                                <span class="switch-toggle-slider">
-                                    <span class="switch-on"></span>
-                                    <span class="switch-off"></span>
-                                </span>
-                            </label>
-                            @error('is_featured')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
                     </div>
 
                     <div class="mt-2">
-                        <button type="submit" class="btn btn-primary me-3">{{ __('Update Service') }}</button>
+                        <button type="submit" class="btn btn-primary me-3">{{ __('Update Guide') }}</button>
                     </div>
                 </form>
             </div>

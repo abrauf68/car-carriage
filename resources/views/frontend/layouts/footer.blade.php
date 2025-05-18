@@ -39,7 +39,7 @@
         <div class="col-lg-2 col-6 footer-links">
           <h4>Our Services</h4>
           <ul>
-            @foreach (\App\Helpers\Helper::getServices() as $service)
+            @foreach (\App\Helpers\Helper::getFeaturedServices() as $service)
                 <li>
                     <a href="{{ route('frontend.services', $service->slug) }}"
                         class="{{ request()->routeIs('frontend.services') && request()->route('slug') == $service->slug ? 'active' : '' }}">

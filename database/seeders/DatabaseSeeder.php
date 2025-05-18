@@ -28,6 +28,8 @@ class DatabaseSeeder extends Seeder
             DesignationSeeder::class,
             TimezoneSeeder::class,
             SettingSeeder::class,
+            ServiceCategorySeeder::class,
+            ServiceSubCategorySeeder::class,
             CompanyServiceSeeder::class,
             TeamSeeder::class,
             TestimonialSeeder::class,
@@ -36,6 +38,9 @@ class DatabaseSeeder extends Seeder
             ServiceFeatureSeeder::class,
             CarBrandSeeder::class,
             CarModelSeeder::class,
+            HowItWorkSeeder::class,
+            CompanyInfoCategorySeeder::class,
+            CompanyInfoSeeder::class,
         ]);
     }
 }

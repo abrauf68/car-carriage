@@ -230,9 +230,30 @@
             /* padding: 0; */
         }
 
-        .desktop-menu .menu-item a {
+        .desktop-menu .dropdown-column a {
+            display: block;
             padding: 8px 12px;
             margin: -8px -12px;
+        }
+
+        .desktop-menu .dropdown-column .menu-link {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .desktop-menu .item-name {
+            font-size: 15px;
+            font-weight: 500;
+            color: #333;
+            line-height: 1.2;
+        }
+
+        .desktop-menu .item-meta {
+            font-size: 13px;
+            color: #666;
+            font-weight: 400;
+            margin-top: 2px;
+            line-height: 1.2;
         }
     </style>
     @include('frontend.layouts.meta')

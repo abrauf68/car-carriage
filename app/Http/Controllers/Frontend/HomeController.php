@@ -6,7 +6,9 @@ use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Models\CarBrand;
 use App\Models\CarModel;
+use App\Models\CompanyInfo;
 use App\Models\CompanyService;
+use App\Models\HowItWork;
 use App\Models\Quote;
 use App\Models\ServiceFeature;
 use App\Models\Team;
@@ -20,7 +22,7 @@ class HomeController extends Controller
     {
         try {
             $carBrands = CarBrand::where('is_active', 'active')->get();
-            $services = CompanyService::where('is_active', 'active')->get();
+            $services = CompanyService::where('is_active', 'active')->where('is_featured', '1')->get();
             return view('frontend.home', compact('services','carBrands'));
         } catch (\Throwable $th) {
             Log::error('Home View Failed', ['error' => $th->getMessage()]);
@@ -47,14 +49,52 @@ class HomeController extends Controller
                 if($service->is_active !== 'active'){
                     return redirect()->back()->with('message', "This service has been deactivated!");
                 }
-                $allServices = CompanyService::where('is_active', 'active')->get();
-                return view('frontend.service_details', compact('service','allServices'));
+                $featuredServices = CompanyService::where('is_active', 'active')->where('is_featured', '1')->get();
+                return view('frontend.service_details', compact('service','featuredServices'));
             }else{
                 $services = CompanyService::where('is_active', 'active')->get();
                 return view('frontend.services', compact('services'));
             }
         } catch (\Throwable $th) {
             Log::error('Services View Failed', ['error' => $th->getMessage()]);
+            return redirect()->back()->with('error', "Something went wrong! Please try again later");
+            throw $th;
+        }
+    }
+    public function howItWorks($slug = null)
+    {
+        try {
+            if($slug !== null){
+                $howItWork = HowItWork::where('slug', $slug)->first();
+                if($howItWork->is_active !== 'active'){
+                    return redirect()->back()->with('message', "This guide has been deactivated!");
+                }
+                $allHowItWorks = HowItWork::where('is_active', 'active')->get();
+                return view('frontend.howItWorks_details', compact('howItWork','allHowItWorks'));
+            }else{
+                return redirect()->route('frontend.home');
+            }
+        } catch (\Throwable $th) {
+            Log::error('How It Works View Failed', ['error' => $th->getMessage()]);
+            return redirect()->back()->with('error', "Something went wrong! Please try again later");
+            throw $th;
+        }
+    }
+    public function whyUs($slug = null)
+    {
+        try {
+            if($slug !== null){
+                $whyUs = CompanyInfo::where('slug', $slug)->first();
+                if($whyUs->is_active !== 'active'){
+                    return redirect()->back()->with('message', "This info has been deactivated!");
+                }
+                // $allHowItWorks = HowItWork::where('is_active', 'active')->get();
+                return view('frontend.whyUs_details', compact('whyUs'));
+            }else{
+                return redirect()->route('frontend.home');
+            }
+        } catch (\Throwable $th) {
+            Log::error('Why Us View Failed', ['error' => $th->getMessage()]);
             return redirect()->back()->with('error', "Something went wrong! Please try again later");
             throw $th;
         }

@@ -3,11 +3,15 @@
 namespace App\Helpers;
 
 use App\Models\BusinessSetting;
+use App\Models\CarBrand;
+use App\Models\CompanyInfoCategory;
 use App\Models\CompanyService;
 use App\Models\CompanySetting;
 use App\Models\Faq;
+use App\Models\HowItWork;
 use App\Models\Package;
 use App\Models\Price;
+use App\Models\ServiceCategory;
 use App\Models\SystemSetting;
 use App\Models\ServiceFeature;
 use App\Models\Testimonial;
@@ -119,6 +123,15 @@ class Helper
     {
         return SystemSetting::first()->footer_text ?? 'All Copyrights Reserved';
     }
+    public static function getHowItWorks()
+    {
+        $howItWorks = HowItWork::where('is_active', 'active')->get();
+        if (isset($howItWorks) && count($howItWorks) > 0) {
+            return $howItWorks;
+        } else {
+            return [];
+        }
+    }
     public static function getServices()
     {
         $services = CompanyService::where('is_active', 'active')->get();
@@ -128,11 +141,47 @@ class Helper
             return [];
         }
     }
+    public static function getFeaturedServices()
+    {
+        $services = CompanyService::where('is_active', 'active')->where('is_featured', '1')->get();
+        if (isset($services) && count($services) > 0) {
+            return $services;
+        } else {
+            return [];
+        }
+    }
+    public static function getServiceCategories()
+    {
+        $serviceCategories = ServiceCategory::with('ServiceSubCategories.companyServices')->where('is_active', 'active')->get();
+        if (isset($serviceCategories) && count($serviceCategories) > 0) {
+            return $serviceCategories;
+        } else {
+            return [];
+        }
+    }
+    public static function getCompanyInfoCategories()
+    {
+        $companyInfoCategories = CompanyInfoCategory::with('companyInfo')->where('is_active', 'active')->get();
+        if (isset($companyInfoCategories) && count($companyInfoCategories) > 0) {
+            return $companyInfoCategories;
+        } else {
+            return [];
+        }
+    }
     public static function getTestimonials()
     {
         $testimonials = Testimonial::where('is_active', 'active')->get();
         if (isset($testimonials) && count($testimonials) > 0) {
             return $testimonials;
+        } else {
+            return [];
+        }
+    }
+    public static function getCarBrands()
+    {
+        $carBrands = CarBrand::where('is_active', 'active')->get();
+        if (isset($carBrands) && count($carBrands) > 0) {
+            return $carBrands;
         } else {
             return [];
         }
