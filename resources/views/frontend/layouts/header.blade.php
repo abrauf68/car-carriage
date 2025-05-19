@@ -149,7 +149,7 @@
         </nav>
 
         <a class="btn-getstarted" style="font-size: 12px; white-space: nowrap;"
-            href="{{ route('frontend.get-a-quote') }}">CTA, Get a Quote</a>
+            href="{{ route('frontend.get-a-quote') }}">Get a Free Quote</a>
 
     </div>
 </header>
@@ -205,7 +205,7 @@
     </ul>
 
     <div class="text-center my-3">
-        <a href="{{ route('frontend.get-a-quote') }}" class="btn btn-primary w-100 mb-2">Get an instant quote</a>
+        <a href="{{ route('frontend.get-a-quote') }}" class="btn btn-primary w-100 mb-2">Get an instant free quote</a>
         {{-- <a href="#" class="btn btn-outline-primary w-100">Check My Order</a> --}}
     </div>
 

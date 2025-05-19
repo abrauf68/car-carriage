@@ -6,7 +6,7 @@
         <div class="col-lg-5 col-md-12 footer-about">
           <a href="{{ route('frontend.home') }}" class="logo d-flex align-items-center">
             <img style="height: 80px !important;" src="{{ asset(\App\Helpers\Helper::getLogoLight()) }}" alt="">
-            <span class="sitename">{{\App\Helpers\Helper::getCompanyName()}}</span>
+            {{-- <span class="sitename">{{\App\Helpers\Helper::getCompanyName()}}</span> --}}
           </a>
           <p>{{\App\Helpers\Helper::getCompanyName()}} is your trusted partner for fast, secure, and reliable car transportation nationwide. We handle every shipment with care, ensuring your vehicle arrives in perfect condition.</p>
           <div class="social-links d-flex mt-4">
