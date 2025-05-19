@@ -10,19 +10,19 @@
                 <div class="ticker-content">
                     <p>
                         {{ \App\Helpers\Helper::getCompanyName() }} has
-                        <span style="color: #5CFFA9;">safely shipped 1,000,000+ vehicles</span>
+                        <span style="color: #FFFDF7;">safely shipped 1,000,000+ vehicles</span>
                         to all 50 states. Read our
-                        <span style="color: #6BDCFF;">100,000+ online reviews </span>
+                        <span style="color: #FFFDF7;">100,000+ online reviews </span>
                         to hear more about our
-                        <span style="color: #6BDCFF;">5-star customer service</span>.
+                        <span style="color: #FFFDF7;">5-star customer service</span>.
                     </p>
                     <p>
                         {{ \App\Helpers\Helper::getCompanyName() }} has
-                        <span style="color: #5CFFA9;">safely shipped 1,000,000+ vehicles</span>
+                        <span style="color: #FFFDF7;">safely shipped 1,000,000+ vehicles</span>
                         to all 50 states. Read our
-                        <span style="color: #6BDCFF;">100,000+ online reviews </span>
+                        <span style="color: #FFFDF7;">100,000+ online reviews </span>
                         to hear more about our
-                        <span style="color: #6BDCFF;">5-star customer service</span>.
+                        <span style="color: #FFFDF7;">5-star customer service</span>.
                     </p>
                 </div>
             </div>

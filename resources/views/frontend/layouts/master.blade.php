@@ -5,15 +5,19 @@
     <title>{{ env('APP_NAME') }} - @yield('title')</title>
     <meta name="description" content="@yield('meta_description')">
     <meta name="keywords" content="@yield('meta_keywords')">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
         .topbar {
             background-color: #1B4AED;
             color: #fff;
             font-size: 14px;
-            padding: 6px 0;
+            padding: 10px 0;
             position: relative;
             z-index: 1051;
+        }
+        .header{
+            margin-top: 20px;
         }
 
         .topbar a {
@@ -107,6 +111,9 @@
         @media (max-width: 1199px) {
             .sitename {
                 font-size: 20px !important;
+            }
+            .header{
+                margin-top: 0px !important;
             }
         }
 
@@ -224,9 +231,13 @@
 
         /* Spacing Fixes */
         .desktop-menu .dropdown-menu,
-        .desktop-menu .dropdown-column,
-        .desktop-menu .menu-item {
+        .desktop-menu .dropdown-column {
             margin: 0;
+            /* padding: 0; */
+        }
+
+        .desktop-menu .menu-item {
+            margin: 0px 0px 10px 0px !important;
             /* padding: 0; */
         }
 
