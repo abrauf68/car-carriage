@@ -10,19 +10,19 @@
                 <div class="ticker-content">
                     <p>
                         {{ \App\Helpers\Helper::getCompanyName() }} has
-                        <span style="color: #FFFDF7;">safely shipped 1,000,000+ vehicles</span>
+                        <span style="color: #029046;">safely shipped 1,000,000+ vehicles</span>
                         to all 50 states. Read our
-                        <span style="color: #FFFDF7;">100,000+ online reviews </span>
+                        <span style="color: #00a1ef;">100,000+ online reviews </span>
                         to hear more about our
-                        <span style="color: #FFFDF7;">5-star customer service</span>.
+                        <span style="color: #00a1ef;">5-star customer service</span>.
                     </p>
                     <p>
                         {{ \App\Helpers\Helper::getCompanyName() }} has
-                        <span style="color: #FFFDF7;">safely shipped 1,000,000+ vehicles</span>
+                        <span style="color: #029046;">safely shipped 1,000,000+ vehicles</span>
                         to all 50 states. Read our
-                        <span style="color: #FFFDF7;">100,000+ online reviews </span>
+                        <span style="color: #00a1ef;">100,000+ online reviews </span>
                         to hear more about our
-                        <span style="color: #FFFDF7;">5-star customer service</span>.
+                        <span style="color: #00a1ef;">5-star customer service</span>.
                     </p>
                 </div>
             </div>
@@ -41,8 +41,8 @@
 
         <a href="{{ route('frontend.home') }}" class="logo d-flex align-items-center me-auto">
             <!-- Uncomment the line below if you also wish to use an image logo -->
-            <img style="height: 80px !important;" src="{{ asset(\App\Helpers\Helper::getLogoLight()) }}" alt="">
-            <h1 class="sitename">{{ \App\Helpers\Helper::getCompanyName() }}</h1>
+            <img class="header-image" src="{{ asset(\App\Helpers\Helper::getLogoLight()) }}" alt="">
+            {{-- <h1 class="sitename">{{ \App\Helpers\Helper::getCompanyName() }}</h1> --}}
         </a>
 
         <nav id="navmenu" class="navmenu">
@@ -157,7 +157,7 @@
 <!-- Mobile Sidebar -->
 <div class="mobile-sidebar d-xl-none" id="mobileSidebar">
     <div class="sidebar-header d-flex justify-content-between align-items-center mb-4">
-        <img src="{{ asset(\App\Helpers\Helper::getLogoLight()) }}" alt="Logo" class="sidebar-logo">
+        <img src="{{ asset(\App\Helpers\Helper::getLogoDark()) }}" alt="Logo" class="sidebar-logo">
         <button id="closeSidebar" class="btn-close"></button>
     </div>
     <ul class="mobile-menu list-unstyled">

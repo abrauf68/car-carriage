@@ -8,8 +8,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
+        .header-image{
+            height: 80px !important;
+        }
         .topbar {
-            background-color: #1B4AED;
+            background-color: #E2E6EC;
             color: #fff;
             font-size: 14px;
             padding: 10px 0;
@@ -21,14 +24,14 @@
         }
 
         .topbar a {
-            color: #fff;
+            color: #5b6573;
             text-decoration: none;
             transition: color 0.3s ease;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .topbar a:hover {
-            color: #cbdfff;
+            color: #007bff;
         }
 
         .topbar-link {
@@ -66,7 +69,7 @@
             font-size: 13px;
             font-style: italic;
             font-weight: 400;
-            color: #fff;
+            color: #000;
         }
 
         @keyframes ticker {
@@ -89,6 +92,12 @@
         @media (max-width: 768px) {
             .topbar {
                 display: none;
+            }
+            .header{
+                margin-top: 0px !important;
+            }
+            .mobile-sidebar{
+                margin-top: 0px !important;
             }
         }
 
@@ -113,7 +122,13 @@
                 font-size: 20px !important;
             }
             .header{
-                margin-top: 0px !important;
+                margin-top: 20px;
+            }
+            .mobile-sidebar{
+                margin-top: 20px;
+            }
+            .header-image{
+                height: 50px !important;
             }
         }
 
@@ -145,7 +160,7 @@
         }
 
         .desktop-menu .dropdown>a {
-            padding: 10px 20px;
+            padding: 10px 10px;
             display: flex;
             align-items: center;
             text-decoration: none;
@@ -217,11 +232,15 @@
 
         /* Hover Effects */
         .desktop-menu .dropdown-column a:hover {
-            color: #007bff;
+            color: #007bff !important;
             border-left: 3px solid #007bff;
             padding-left: 10px;
             background-color: #f8f9fa;
             border-radius: 4px;
+        }
+
+        .desktop-menu .dropdown-column a:hover .item-name {
+            color: #007bff !important;
         }
 
         .desktop-menu .menu-item:hover {
@@ -254,7 +273,7 @@
 
         .desktop-menu .item-name {
             font-size: 15px;
-            font-weight: 500;
+            font-weight: 600;
             color: #333;
             line-height: 1.2;
         }
