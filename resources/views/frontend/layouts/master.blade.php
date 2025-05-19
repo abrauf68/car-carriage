@@ -128,7 +128,7 @@
                 margin-top: 20px;
             }
             .header-image{
-                height: 50px !important;
+                height: 40px !important;
             }
         }
 
