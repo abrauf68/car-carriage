@@ -302,10 +302,8 @@
         <div class="container">
             <div class="row gy-4 d-flex justify-content-between">
                 <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
-                    <h2 data-aos="fade-up">Turning Miles into Smiles – Car Delivery Made Easy</h2>
-                    <p data-aos="fade-up" data-aos-delay="100">Swift and secure car transport solutions tailored to your
-                        needs, ensuring every vehicle reaches its destination with care and precision. Trusted by thousands
-                        for our reliability, we move with purpose, speed, and a promise to protect what drives you.</p>
+                    <h2 data-aos="fade-up">Driven by Care, Delivered with Precision</h2>
+                    <p data-aos="fade-up" data-aos-delay="100">Reliable, fast, and personalized auto transport designed around you. From coast to coast, we ensure your vehicle arrives safely, on time, and exactly as expected. Join the thousands who trust us to deliver more than just cars—we deliver peace of mind.</p>
 
                     {{-- <form action="#" class="form-search d-flex align-items-stretch mb-3" data-aos="fade-up"
                         data-aos-delay="200">
