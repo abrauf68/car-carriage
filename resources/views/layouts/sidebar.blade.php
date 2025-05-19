@@ -40,7 +40,7 @@
         @can(['view how it work'])
             <li class="menu-item {{ request()->routeIs('dashboard.how-it-works.*') ? 'active' : '' }}">
                 <a href="{{ route('dashboard.how-it-works.index') }}" class="menu-link">
-                    <i class="menu-icon tf-icons ti ti-briefcase"></i>
+                    <i class="menu-icon tf-icons ti ti-info-circle"></i>
                     <div>{{ __('How It Works') }}</div>
                 </a>
             </li>
@@ -49,7 +49,7 @@
         @can(['view why us'])
             <li class="menu-item {{ request()->routeIs('dashboard.why-us.*') ? 'active' : '' }}">
                 <a href="{{ route('dashboard.why-us.index') }}" class="menu-link">
-                    <i class="menu-icon tf-icons ti ti-briefcase"></i>
+                    <i class="menu-icon tf-icons ti ti-shield-check"></i>
                     <div>{{ __('Why Car Carriage') }}</div>
                 </a>
             </li>
@@ -109,6 +109,24 @@
             </li>
         @endcan
 
+        @canany(['view price'])
+            <li
+                class="menu-item {{ request()->routeIs('dashboard.prices.*') ? 'open' : '' }}">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons ti ti-settings"></i>
+                    <div>{{ __('Setup') }}</div>
+                </a>
+                <ul class="menu-sub">
+                    @can(['view price'])
+                        <li class="menu-item {{ request()->routeIs('dashboard.prices.*') ? 'active' : '' }}">
+                            <a href="{{ route('dashboard.prices.index') }}" class="menu-link">
+                                <div>{{ __('Prices') }}</div>
+                            </a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+        @endcan
         @canany(['view user', 'view archived user'])
             <li
                 class="menu-item {{ request()->routeIs('dashboard.user.*') || request()->routeIs('dashboard.archived-user.*') ? 'open' : '' }}">

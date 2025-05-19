@@ -280,6 +280,12 @@ class Helper
 
         return $amount . $symbol;
     }
+    public static function getCurrencySymbol()
+    {
+        $currencySetting = SystemSetting::first();
+        $symbol = $currencySetting->currency_symbol ?? '$';
+        return $symbol;
+    }
 
     public static function renderRecaptcha($formId, $action = 'register')
     {

@@ -83,7 +83,7 @@
         }
 
         @media (max-width: 768px) {
-            .topbar{
+            .topbar {
                 display: none;
             }
         }
@@ -255,6 +255,94 @@
             margin-top: 2px;
             line-height: 1.2;
         }
+
+        /* Mobile Sidebar */
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 300px;
+            height: 100vh;
+            background-color: #fff;
+            z-index: 1050;
+            padding: 20px;
+            transition: left 0.3s ease;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-sidebar.active {
+            left: 0;
+        }
+
+        .sidebar-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1040;
+            display: none;
+        }
+
+        .sidebar-backdrop.active {
+            display: block;
+        }
+
+        .sidebar-logo {
+            max-height: 30px;
+        }
+
+        .mobile-menu li a {
+            display: block;
+            padding: 12px 0;
+            font-weight: 500;
+            color: #333;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+            font-size: 15px;
+        }
+
+        .mobile-menu li.has-dropdown>a {
+            cursor: pointer;
+        }
+
+        .mobile-menu .submenu {
+            display: none;
+            padding-left: 15px;
+        }
+
+        .mobile-menu .has-dropdown.active .submenu {
+            display: block;
+        }
+
+        .mobile-menu .submenu a {
+            font-size: 14px;
+            color: #555;
+            padding: 8px 0;
+        }
+
+        .btn-close {
+            background: none;
+            border: none;
+            font-size: 22px;
+        }
+
+        .btn-danger {
+            background-color: #f24b32;
+            border: none;
+        }
+
+        .btn-outline-primary {
+            border: 1px solid #007bff;
+            color: #007bff;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
     </style>
     @include('frontend.layouts.meta')
     @include('frontend.layouts.css')
@@ -287,6 +375,71 @@
 
     @yield('script')
     @include('frontend.layouts.script')
+    {{-- <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const toggleBtn = document.querySelector('.mobile-nav-toggle');
+        const sidebar = document.getElementById('mobileSidebar');
+        const backdrop = document.getElementById('sidebarBackdrop');
+        const closeBtn = document.getElementById('closeSidebar');
+        const dropdownLinks = document.querySelectorAll('.has-dropdown > a');
+
+        toggleBtn.addEventListener('click', () => {
+            sidebar.classList.add('active');
+            backdrop.classList.add('active');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            backdrop.classList.remove('active');
+        });
+
+        backdrop.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            backdrop.classList.remove('active');
+        });
+
+        dropdownLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                link.parentElement.classList.toggle('active');
+            });
+        });
+    });
+</script> --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const toggleBtn = document.querySelector('.mobile-nav-toggle');
+            const sidebar = document.getElementById('mobileSidebar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            const closeBtn = document.getElementById('closeSidebar');
+            const dropdownLinks = document.querySelectorAll('.has-dropdown > a');
+            const desktopMenu = document.querySelector(
+            '.desktop-menu'); // Make sure your desktop menu has this class
+
+            toggleBtn.addEventListener('click', () => {
+                sidebar.classList.add('active');
+                backdrop.classList.add('active');
+                if (desktopMenu) desktopMenu.style.display = 'none'; // Hide desktop menu
+            });
+
+            const closeSidebar = () => {
+                sidebar.classList.remove('active');
+                backdrop.classList.remove('active');
+                // if (desktopMenu) desktopMenu.style.display = '';
+            };
+
+            closeBtn.addEventListener('click', closeSidebar);
+            backdrop.addEventListener('click', closeSidebar);
+
+            dropdownLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    link.parentElement.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+
 
 </body>
 

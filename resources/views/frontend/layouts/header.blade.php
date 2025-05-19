@@ -98,7 +98,8 @@
                                                         <a href="{{ route('frontend.services', $service->slug) }}">
                                                             <div class="menu-link">
                                                                 <span class="item-name">{{ $service->name }}</span>
-                                                                <span class="item-meta">{{ $service->meta_title }}</span>
+                                                                <span
+                                                                    class="item-meta">{{ $service->meta_title }}</span>
                                                             </div>
                                                         </a>
                                                     </div>
@@ -143,51 +144,6 @@
                         @endif
                     </div>
                 </li>
-                {{-- <li class="dropdown">
-                    <a href="#">
-                        <span>WHY CAR CARRIAGE</span> <i class="fas fa-chevron-down toggle-dropdown"></i>
-                    </a>
-
-                    <div class="dropdown-menu">
-                        <!-- Our Brand -->
-                        <div class="dropdown-column">
-                            <h4>Our brand</h4>
-                            <div class="menu-item"><a href="#">Who we are<small>Our story and
-                                        experience</small></a></div>
-                            <div class="menu-item"><a href="#">Vision and mission<small>What we believe
-                                        in</small></a></div>
-                            <div class="menu-item"><a href="#">Our reputation<small>Industry knowledge and
-                                        expertise</small></a></div>
-                            <div class="menu-item"><a href="#">Reviews<small>Feedback from our clients</small></a>
-                            </div>
-                            <div class="menu-item"><a href="#">Press<small>See what people are saying</small></a>
-                            </div>
-                        </div>
-
-                        <!-- Leadership -->
-                        <div class="dropdown-column">
-                            <h4>Leadership</h4>
-                            <div class="menu-item"><a href="#">Executive team<small>Strategic
-                                        leadership</small></a></div>
-                            <div class="menu-item"><a href="#">Board of directors<small>Organizational
-                                        guidance</small></a></div>
-                        </div>
-
-                        <!-- Learn more -->
-                        <div class="dropdown-column">
-                            <h4>Learn more</h4>
-                            <div class="menu-item"><a href="#">Carrier relations<small>Join our carrier
-                                        network</small></a></div>
-                            <div class="menu-item"><a href="#">Contact us<small>Support and
-                                        information</small></a></div>
-                            <div class="menu-item"><a href="#">Resources<small>Guides and solutions</small></a>
-                            </div>
-                            <div class="menu-item"><a href="#">Help center<small>Questions and answers</small></a>
-                            </div>
-                            <div class="menu-item"><a href="#">Blog<small>Auto news and insights</small></a></div>
-                        </div>
-                    </div>
-                </li> --}}
             </ul>
             <i class="mobile-nav-toggle d-xl-none fas fa-bars"></i>
         </nav>
@@ -197,3 +153,71 @@
 
     </div>
 </header>
+
+<!-- Mobile Sidebar -->
+<div class="mobile-sidebar d-xl-none" id="mobileSidebar">
+    <div class="sidebar-header d-flex justify-content-between align-items-center mb-4">
+        <img src="{{ asset(\App\Helpers\Helper::getLogoLight()) }}" alt="Logo" class="sidebar-logo">
+        <button id="closeSidebar" class="btn-close"></button>
+    </div>
+    <ul class="mobile-menu list-unstyled">
+        <li class="has-dropdown">
+            <a href="#">HOW IT WORKS <i class="fas fa-chevron-down float-end"></i></a>
+            <ul class="submenu list-unstyled">
+                @foreach (\App\Helpers\Helper::getHowItWorks() as $item)
+                    <li><a href="{{ route('frontend.howItWorks', $item->slug) }}">{{ $item->name }}</a></li>
+                @endforeach
+            </ul>
+        </li>
+        @if (count(\App\Helpers\Helper::getServiceCategories()) > 0)
+            @foreach (\App\Helpers\Helper::getServiceCategories() as $index => $category)
+                <li class="has-dropdown">
+                    <a href="#">{{ strtoupper($category->name) }} <i
+                            class="fas fa-chevron-down float-end"></i></a>
+                    <ul class="submenu list-unstyled">
+                        @if (isset($category->ServiceSubCategories) && count($category->ServiceSubCategories) > 0)
+                            @foreach ($category->ServiceSubCategories as $subcategory)
+                                <h6>{{ strtoupper($subcategory->name) }}</h6>
+                                @foreach ($subcategory->companyServices as $service)
+                                    <li>
+                                        <a href="{{ route('frontend.services', $service->slug) }}">{{ $service->name }}</a>
+                                    </li>
+                                @endforeach
+                            @endforeach
+                        @endif
+                    </ul>
+                </li>
+            @endforeach
+        @endif
+        <li class="has-dropdown">
+            <a href="#">WHY CAR CARRIAGE <i class="fas fa-chevron-down float-end"></i></a>
+            <ul class="submenu list-unstyled">
+                @if (count(\App\Helpers\Helper::getCompanyInfoCategories()) > 0)
+                    @foreach (\App\Helpers\Helper::getCompanyInfoCategories() as $companyInfoCategory)
+                        <h6>{{ strtoupper($companyInfoCategory->name) }}</h6>
+                        @foreach ($companyInfoCategory->companyInfo as $companyInfo)
+                            <a href="{{ route('frontend.whyUs', $companyInfo->slug) }}">{{ $companyInfo->name }}</a>
+                        @endforeach
+                    @endforeach
+                @endif
+            </ul>
+        </li>
+    </ul>
+
+    <div class="text-center my-3">
+        <a href="{{ route('frontend.get-a-quote') }}" class="btn btn-primary w-100 mb-2">Get an instant quote</a>
+        {{-- <a href="#" class="btn btn-outline-primary w-100">Check My Order</a> --}}
+    </div>
+
+    <div class="text-center text-primary fw-bold fs-5 mt-4 mb-2">
+        {{ \App\Helpers\Helper::getCompanyPhone() }}
+    </div>
+
+    <ul class="list-unstyled text-center small">
+        <li><a style="color: inherit;" href="{{ route('frontend.about') }}">ABOUT US</a></li>
+        <li><a style="color: inherit;" href="{{ route('frontend.contact') }}">CONTACT US</a></li>
+        <li><a style="color: inherit;" href="{{ route('frontend.pricing') }}">PRICING & PACKAGES</a></li>
+    </ul>
+</div>
+
+<div class="sidebar-backdrop d-xl-none" id="sidebarBackdrop"></div>

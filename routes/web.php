@@ -10,6 +10,7 @@ use App\Http\Controllers\Dashboard\FAQController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\HowItWorkController;
 use App\Http\Controllers\Dashboard\NotificationController;
+use App\Http\Controllers\Dashboard\PriceController;
 use App\Http\Controllers\Dashboard\PricingController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\QuoteController;
@@ -183,6 +184,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             // Pricing
             Route::resource('pricing', PricingController::class);
             Route::get('pricing/status/{id}', [PricingController::class, 'updateStatus'])->name('pricing.status.update');
+
+            // Pricing
+            Route::resource('prices', PriceController::class);
 
         });
     });

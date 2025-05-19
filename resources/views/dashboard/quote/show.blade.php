@@ -50,20 +50,33 @@
                     <dt class="col-sm-3">{{ __('Delivery Location') }}</dt>
                     <dd class="col-sm-9">{{ $quote->delivery_location }}</dd>
 
-                    <dt class="col-sm-3">{{ __('Zip Code') }}</dt>
-                    <dd class="col-sm-9">{{ $quote->zip_code ?? '-' }}</dd>
-
-                    {{-- <dt class="col-sm-3">{{ __('Weight (kg)') }}</dt>
-                    <dd class="col-sm-9">{{ $quote->weight ?? '-' }}</dd>
-
-                    <dt class="col-sm-3">{{ __('Dimension') }}</dt>
-                    <dd class="col-sm-9">{{ $quote->dimension ?? '-' }}</dd> --}}
-
-                    <dt class="col-sm-3">{{ __('Details') }}</dt>
-                    <dd class="col-sm-9">{{ $quote->delivery_details ?? '-' }}</dd>
+                    <dt class="col-sm-3">{{ __('Transport Type') }}</dt>
+                    <dd class="col-sm-9">{{ ucfirst($quote->transport_type) }}</dd>
 
                     <dt class="col-sm-3">{{ __('Created At') }}</dt>
                     <dd class="col-sm-9">{{ $quote->created_at->format('d M Y, h:i A') }}</dd>
+
+                    <dt class="col-sm-3">{{ __('Distance') }}</dt>
+                    <dd class="col-sm-9">{{ $quote->distance }}</dd>
+
+                    <dt class="col-sm-3">{{ __('Total Price') }}</dt>
+                    <dd class="col-sm-9">{{ \App\Helpers\Helper::formatCurrency($quote->price) }}</dd>
+                </dl>
+
+                {{-- Vehicle Details --}}
+                <h6 class="text-uppercase text-muted fw-bold border-bottom pb-1 mb-3">{{ __('Vehicle Details') }}</h6>
+                <dl class="row">
+                    <dt class="col-sm-3">{{ __('Vehicle Year') }}</dt>
+                    <dd class="col-sm-9">{{ $quote->vehicle_year }}</dd>
+
+                    <dt class="col-sm-3">{{ __('Make/Brand') }}</dt>
+                    <dd class="col-sm-9">{{ $quote->vehicle_make }}</dd>
+
+                    <dt class="col-sm-3">{{ __('Model') }}</dt>
+                    <dd class="col-sm-9">{{ ucfirst($quote->vehicle_model) }}</dd>
+
+                    <dt class="col-sm-3">{{ __('Condition') }}</dt>
+                    <dd class="col-sm-9">{{ ucwords(str_replace('-', ' ', $quote->condition)) }}</dd>
                 </dl>
 
                 {{-- User Details --}}
@@ -77,9 +90,6 @@
 
                     <dt class="col-sm-3">{{ __('Phone') }}</dt>
                     <dd class="col-sm-9">{{ $quote->phone }}</dd>
-
-                    <dt class="col-sm-3">{{ __('Message') }}</dt>
-                    <dd class="col-sm-9">{{ $quote->message ?? '-' }}</dd>
                 </dl>
             </div>
         </div>
