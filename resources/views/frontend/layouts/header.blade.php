@@ -205,7 +205,7 @@
     </ul>
 
     <div class="text-center my-3">
-        <a href="{{ route('frontend.get-a-quote') }}" class="btn btn-primary w-100 mb-2">Get an instant free quote</a>
+        <a href="{{ route('frontend.get-a-quote') }}" class="btn btn-primary w-100 mb-2">Get an Instant Free Quote</a>
         {{-- <a href="#" class="btn btn-outline-primary w-100">Check My Order</a> --}}
     </div>
 

@@ -2,9 +2,9 @@
     <div class="app-brand demo">
         <a href="{{ route('dashboard') }}" class="app-brand-link">
             <span class="app-brand-logo demo">
-                <img height="50px" src="{{ asset(\App\Helpers\Helper::getLogoLight()) }}" alt="{{ env('APP_NAME') }}">
+                <img height="50px" src="{{ asset(\App\Helpers\Helper::getLogoDark()) }}" alt="{{ env('APP_NAME') }}">
             </span>
-            <span class="app-brand-text demo menu-text fw-bold">{{ \App\Helpers\Helper::getCompanyName() }}</span>
+            {{-- <span class="app-brand-text demo menu-text fw-bold">{{ \App\Helpers\Helper::getCompanyName() }}</span> --}}
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
@@ -109,9 +109,9 @@
             </li>
         @endcan
 
-        @canany(['view price'])
+        @canany(['view price','view car brand'])
             <li
-                class="menu-item {{ request()->routeIs('dashboard.prices.*') ? 'open' : '' }}">
+                class="menu-item {{ request()->routeIs('dashboard.prices.*') || request()->routeIs('dashboard.car-brands.*') ? 'open' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons ti ti-settings"></i>
                     <div>{{ __('Setup') }}</div>
@@ -121,6 +121,13 @@
                         <li class="menu-item {{ request()->routeIs('dashboard.prices.*') ? 'active' : '' }}">
                             <a href="{{ route('dashboard.prices.index') }}" class="menu-link">
                                 <div>{{ __('Prices') }}</div>
+                            </a>
+                        </li>
+                    @endcan
+                    @can(['view car brand'])
+                        <li class="menu-item {{ request()->routeIs('dashboard.car-brands.*') ? 'active' : '' }}">
+                            <a href="{{ route('dashboard.car-brands.index') }}" class="menu-link">
+                                <div>{{ __('Car Brands') }}</div>
                             </a>
                         </li>
                     @endcan

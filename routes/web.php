@@ -5,6 +5,8 @@ use App\Http\Controllers\Auth\GithubController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Dashboard\CarBrandController;
+use App\Http\Controllers\Dashboard\CarModelController;
 use App\Http\Controllers\Dashboard\ContactController;
 use App\Http\Controllers\Dashboard\FAQController;
 use App\Http\Controllers\Dashboard\HomeController;
@@ -187,6 +189,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             // Pricing
             Route::resource('prices', PriceController::class);
+
+            // Car Brands
+            Route::resource('car-brands', CarBrandController::class);
+            Route::get('car-brands/status/{id}', [CarBrandController::class, 'updateStatus'])->name('car-brands.status.update');
+
+            // Car Models
+            Route::get('car-models/{id}', [CarModelController::class, 'index'])->name('car-models.index');
+            Route::get('car-models/{id}/create', [CarModelController::class, 'create'])->name('car-models.create');
+            Route::post('car-models/{id}/store', [CarModelController::class, 'store'])->name('car-models.store');
+            Route::get('car-models/edit/{id}', [CarModelController::class, 'edit'])->name('car-models.edit');
+            Route::put('car-models/update/{id}', [CarModelController::class, 'update'])->name('car-models.update');
+            Route::delete('car-models/destroy/{id}', [CarModelController::class, 'destroy'])->name('car-models.destroy');
+            Route::get('car-models/status/{id}', [CarModelController::class, 'updateStatus'])->name('car-models.status.update');
 
         });
     });

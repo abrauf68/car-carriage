@@ -96,6 +96,16 @@ class UserRolePermissionSeeder extends Seeder
         Permission::create(['name' => 'create price']);
         Permission::create(['name' => 'update price']);
         Permission::create(['name' => 'delete price']);
+        
+        Permission::create(['name' => 'view car brand']);
+        Permission::create(['name' => 'create car brand']);
+        Permission::create(['name' => 'update car brand']);
+        Permission::create(['name' => 'delete car brand']);
+
+        Permission::create(['name' => 'view car model']);
+        Permission::create(['name' => 'create car model']);
+        Permission::create(['name' => 'update car model']);
+        Permission::create(['name' => 'delete car model']);
 
 
         // Create Roles
