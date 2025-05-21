@@ -289,15 +289,15 @@
     <!-- Hero Section -->
     <section id="hero" class="hero section dark-background">
 
-        <video class="hero-bg" autoplay muted loop playsinline preload="auto">
+        {{-- <video class="hero-bg" autoplay muted loop playsinline preload="auto">
             <source src="{{ asset('frontAssets/video/bg_video2.mp4') }}" type="video/mp4">
             Your browser does not support the video tag.
-        </video>
+        </video> --}}
 
         <!-- Overlay Shade -->
         <div class="overlay"></div>
 
-        {{-- <img src="{{ asset('frontAssets/img/world-dotted-map.png') }}" alt="" class="hero-bg" data-aos="fade-in"> --}}
+        <img src="{{ asset('frontAssets/img/world-dotted-map.png') }}" alt="" class="hero-bg" data-aos="fade-in">
 
         <div class="container">
             <div class="row gy-4 d-flex justify-content-between">
